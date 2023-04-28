@@ -66,7 +66,7 @@ void set_cursor_pos(int x,int y)
 
 
 
-void clear_screen()
+void clear_screen(bool bootmenu)
 {
 
 
@@ -81,8 +81,11 @@ void clear_screen()
 	   }
 	set_cursor_pos(0,0);
 	// printtext("                           <<PINGUKERNEL v 0.1>>                                \n",0xa0,0);
-	printtext("PINGUKERNEL v 0.1                                   Developed by @jevilbutworse \n",0xa0,0,false);
-
+	if (bootmenu) {
+	       printtext("                                   Boot Menu                                    \n",0xb0,0,false);
+	} else {
+              printtext("PINGUKERNEL v 0.1                                   Developed by @jevilbutworse \n",0xb0,0,false);
+	}
 }
 
 void scroll()
@@ -151,7 +154,7 @@ void printchar(char c,char colors,char toblink,bool comd)
 	 
 	if(c==toblink)
 	{
-		*(screen+1)=colors|0b10000000;
+		*(screen+1)=colors|0b00000000;
 	}
 	else *(screen+1)=colors;
 	screen+=2;
@@ -206,7 +209,7 @@ void next_line()
 	}
 
 	set_cursor_pos(x,y);
-	printtext(">",0x0a,0,false);
+	printtext(">",0x0f,0,false);
 
 
 }
